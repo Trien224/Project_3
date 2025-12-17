@@ -1,0 +1,18 @@
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background: #343a40;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+        }
+        .sidebar a:hover {
+            background: #495057;
+        }
+    </style>

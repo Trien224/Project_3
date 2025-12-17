@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h3 class="mb-4">📦 Borrowings</h3>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>User</th>
+        <th>Book</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b : ${borrowings}">
+        <td th:text="${b.user.username}"></td>
+        <td th:text="${b.bookItem.book.title}"></td>
+        <td th:text="${b.status}"></td>
+        <td>
+            <a th:if="${b.status=='borrowed'}"
+               th:href="@{/admin/borrowings/return/{id}(id=${b.id})}"
+               class="btn btn-success btn-sm">
+                Return
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
