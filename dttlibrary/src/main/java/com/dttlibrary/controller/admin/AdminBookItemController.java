@@ -41,13 +41,14 @@ public class AdminBookItemController {
 
         item.setBook(bookService.findById(bookId));
 
-        // nếu status null thì set mặc định
+        // nếu status null thì set mặc định (ENUM)
         if (item.getStatus() == null) {
-            item.setStatus("available");
+            item.setStatus(BookItem.Status.available);
         }
 
         itemService.save(item);
         return "redirect:/admin/book-items";
     }
+
 }
 

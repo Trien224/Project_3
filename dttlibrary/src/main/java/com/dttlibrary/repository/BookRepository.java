@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
-    @Query("SELECT b FROM Book b LEFT JOIN b.bookItems bi WHERE bi.status = 'available'")
-    List<Book> findAllWithAvailableItems();
+
+    List<Book> findTop8ByOrderByCreatedAtDesc();
 }

@@ -1,6 +1,7 @@
 package com.dttlibrary.repository;
 
 import com.dttlibrary.model.Borrowing;
+import com.dttlibrary.model.Borrowing.Status;
 import com.dttlibrary.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,16 +10,23 @@ import java.util.List;
 
 public interface BorrowingRepository extends JpaRepository<Borrowing, Integer> {
 
-    // ✔ theo User
+    // ===== USER =====
+
+    // Lấy danh sách mượn theo User
     List<Borrowing> findByUser(User user);
 
-    // ✔ theo User + Status  (🔥 BẮT BUỘC)
-    List<Borrowing> findByUserAndStatus(User user, String status);
+    // Lấy theo username (🔥 dùng cho My Borrowings)
+    List<Borrowing> findByUserUsername(String username);
 
-    // ✔ theo userId (tuỳ dùng)
+    // Lấy theo User + Status
+    List<Borrowing> findByUserAndStatus(User user, Status status);
+
+    // Lấy theo userId
     List<Borrowing> findByUser_Id(Integer userId);
 
-    long countByStatus(String status);
+    // ===== ADMIN / STAT =====
 
-    long countByStatusAndDueDateBefore(String status, LocalDateTime date);
+    long countByStatus(Status status);
+
+    long countByStatusAndDueDateBefore(Status status, LocalDateTime date);
 }

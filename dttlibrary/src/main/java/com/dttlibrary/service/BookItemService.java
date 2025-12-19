@@ -19,10 +19,6 @@ public class BookItemService {
         return bookItemRepository.findAll();
     }
 
-    public List<BookItem> findAvailable() {
-        return bookItemRepository.findByStatus("available");
-    }
-
     public BookItem findById(Integer id) {
         return bookItemRepository.findById(id).orElse(null);
     }
@@ -31,8 +27,23 @@ public class BookItemService {
         bookItemRepository.save(item);
     }
 
-    // ===== DÙNG CHO DASHBOARD =====
+    // ✅ DASHBOARD
     public long countItems() {
         return bookItemRepository.count();
+    }
+    public BookItem findFirstAvailable(Integer bookId) {
+        return bookItemRepository
+                .findFirstByBook_IdAndStatus(
+                        bookId,
+                        BookItem.Status.available
+                )
+                .orElse(null);
+    }
+
+    public long countAvailableByBookId(Integer bookId) {
+        return bookItemRepository.countByBook_IdAndStatus(
+                bookId,
+                BookItem.Status.available
+        );
     }
 }

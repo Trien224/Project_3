@@ -10,21 +10,18 @@ import java.util.UUID;
 @Service
 public class FileStorageService {
 
-    private static final String UPLOAD_DIR = "D:/dttlibrary/uploads/";
+    // KHỚP với FileUploadConfig
+    private final String uploadDir = "E:/dttlibrary/";
 
-    public String storeFile(MultipartFile file) {
-
-        if (file.isEmpty()) return null;
-
-        String original = file.getOriginalFilename();
-        String ext = original.substring(original.lastIndexOf("."));
-        String fileName = UUID.randomUUID() + ext;
+    public String store(MultipartFile file) {
 
         try {
-            file.transferTo(new File(UPLOAD_DIR + fileName));
+            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            File dest = new File(uploadDir + fileName);
+            file.transferTo(dest);
             return fileName;
         } catch (IOException e) {
-            throw new RuntimeException("Upload failed");
+            throw new RuntimeException("Upload file failed", e);
         }
     }
 }

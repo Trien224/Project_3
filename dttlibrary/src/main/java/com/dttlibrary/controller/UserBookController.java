@@ -1,45 +1,62 @@
 package com.dttlibrary.controller;
 
 import com.dttlibrary.model.Book;
+import com.dttlibrary.model.BookImage;
 import com.dttlibrary.service.BookItemService;
 import com.dttlibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/books")
+@RequestMapping("/user/books")
 public class UserBookController {
 
     private final BookService bookService;
-    private final BookItemService itemService;
+    private final BookItemService bookItemService;
 
     public UserBookController(BookService bookService,
-                              BookItemService itemService) {
+                              BookItemService bookItemService) {
         this.bookService = bookService;
-        this.itemService = itemService;
+        this.bookItemService = bookItemService;
     }
 
+    /**
+     * 📚 USER – DANH SÁCH SÁCH
+     */
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("books", bookService.findAllWithAvailableItems());
-        model.addAttribute("content", "books/list");
-        return "books";
+
+        List<Book> books = bookService.findAll(); // an toàn, không lỗi
+        model.addAttribute("books", books);
+
+        return "user/books/list";
     }
 
+    /**
+     * 📖 USER – CHI TIẾT SÁCH
+     */
     @GetMapping("/{id}")
     public String detail(@PathVariable Integer id, Model model) {
-        Book book = bookService.findById(id);
 
-        long available = itemService.findAll().stream()
-                .filter(i -> i.getBook().getId().equals(id)
-                        && "available".equals(i.getStatus()))
-                .count();
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "redirect:/user/books";
+        }
+
+        long available = bookItemService.countAvailableByBookId(id);
+
+        // nếu CHƯA có bảng book_images thì tạm comment 2 dòng dưới
+        BookImage primaryImage = bookService.getPrimaryImage(id);
+        List<BookImage> images = bookService.getImages(id);
 
         model.addAttribute("book", book);
         model.addAttribute("available", available);
-        model.addAttribute("content", "books/detail");
-        return "layout";
-    }
+        model.addAttribute("primaryImage", primaryImage);
+        model.addAttribute("images", images);
 
+        return "user/books/detail";
+    }
 }

@@ -11,21 +11,38 @@ public class Borrowing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // ===== USER =====
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    // ===== BOOK ITEM =====
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "book_item_id")
+    @JoinColumn(name = "book_item_id", nullable = false)
     private BookItem bookItem;
 
-
+    // ===== DATE =====
+    @Column(name = "borrow_date", nullable = false)
     private LocalDateTime borrowDate;
+
+    @Column(name = "due_date", nullable = false)
     private LocalDateTime dueDate;
+
+    @Column(name = "return_date")
     private LocalDateTime returnDate;
 
-    @Column(length = 20)
-    private String status; // borrowed | returned
+    // ===== STATUS =====
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private Status status;
+
+    // ===== ENUM =====
+    public enum Status {
+        borrowed,
+        returned,
+        overdue,
+        lost
+    }
 
     // ===== GETTERS / SETTERS =====
     public Integer getId() { return id; }
@@ -46,6 +63,6 @@ public class Borrowing {
     public LocalDateTime getReturnDate() { return returnDate; }
     public void setReturnDate(LocalDateTime returnDate) { this.returnDate = returnDate; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 }

@@ -26,6 +26,10 @@ public class BorrowingService {
     }
 
     // ===== USER =====
+    public List<Borrowing> findByUsername(String username) {
+        return borrowingRepository.findByUserUsername(username);
+    }
+
     @Transactional(readOnly = true)
     public List<Borrowing> findByUser(User user) {
         return borrowingRepository.findByUser(user);
@@ -53,7 +57,8 @@ public class BorrowingService {
     public void borrowBook(Integer bookItemId, Integer userId) {
 
         BookItem item = bookItemService.findById(bookItemId);
-        if (item == null || !"available".equals(item.getStatus())) {
+
+        if (item == null || item.getStatus() != BookItem.Status.available) {
             throw new RuntimeException("Book not available");
         }
 
@@ -64,11 +69,11 @@ public class BorrowingService {
         borrowing.setBookItem(item);
         borrowing.setBorrowDate(LocalDateTime.now());
         borrowing.setDueDate(LocalDateTime.now().plusDays(7));
-        borrowing.setStatus("borrowed");
+        borrowing.setStatus(Borrowing.Status.borrowed);
 
         borrowingRepository.save(borrowing);
 
-        item.setStatus("borrowed");
+        item.setStatus(BookItem.Status.borrowed);
         bookItemService.save(item);
     }
 
@@ -78,25 +83,28 @@ public class BorrowingService {
 
         Borrowing borrowing = findById(id);
 
-        if ("returned".equals(borrowing.getStatus())) return;
+        if (borrowing.getStatus() == Borrowing.Status.returned) {
+            return;
+        }
 
-        borrowing.setStatus("returned");
+        borrowing.setStatus(Borrowing.Status.returned);
         borrowing.setReturnDate(LocalDateTime.now());
         borrowingRepository.save(borrowing);
 
         BookItem item = borrowing.getBookItem();
-        item.setStatus("available");
+        item.setStatus(BookItem.Status.available);
         bookItemService.save(item);
     }
 
     // ===== DASHBOARD =====
     public long countBorrowed() {
-        return borrowingRepository.countByStatus("borrowed");
+        return borrowingRepository.countByStatus(Borrowing.Status.borrowed);
     }
 
     public long countOverdue() {
         return borrowingRepository.countByStatusAndDueDateBefore(
-                "borrowed", LocalDateTime.now()
+                Borrowing.Status.borrowed,
+                LocalDateTime.now()
         );
     }
 }

@@ -20,8 +20,10 @@ public class BookItem {
     @Column(nullable = false, unique = true)
     private String barcode;
 
-    @Column(length = 50, nullable = false)
-    private String status = "available";
+    // ===== STATUS (ENUM) =====
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private Status status;
 
     private String location;
 
@@ -31,12 +33,21 @@ public class BookItem {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    // ===== ENUM =====
+    public enum Status {
+        available,
+        borrowed,
+        reserved,
+        lost,
+        maintenance
+    }
+
     // ===== LIFECYCLE =====
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        if (this.status == null || this.status.isEmpty()) {
-            this.status = "available";
+        if (this.status == null) {
+            this.status = Status.available;
         }
     }
 
@@ -46,13 +57,8 @@ public class BookItem {
     }
 
     // ===== GETTERS & SETTERS =====
-
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Book getBook() {
@@ -71,11 +77,12 @@ public class BookItem {
         this.barcode = barcode;
     }
 
-    public String getStatus() {
+    // 🔥 METHOD BỊ THIẾU → GÂY LỖI
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -11,33 +11,37 @@ public class BookImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
+    // ===== RELATION =====
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @Column(length = 1000)
+    // ===== FIELDS =====
+    @Column(length = 1000, nullable = false)
     private String url;
 
-    private String altText;
+    @Column(nullable = false)
+    private Boolean isPrimary = true;
 
-    private Boolean isPrimary = false;
-
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    // ===== GETTERS & SETTERS =====
-
-    public Integer getId() {
-        return id;
+    // ===== LIFECYCLE =====
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    // ===== GETTERS & SETTERS =====
+    public Integer getId() {
+        return id;
     }
 
     public Book getBook() {
         return book;
     }
 
+    // 🔥 METHOD BỊ THIẾU → GÂY LỖI
     public void setBook(Book book) {
         this.book = book;
     }
@@ -50,14 +54,6 @@ public class BookImage {
         this.url = url;
     }
 
-    public String getAltText() {
-        return altText;
-    }
-
-    public void setAltText(String altText) {
-        this.altText = altText;
-    }
-
     public Boolean getIsPrimary() {
         return isPrimary;
     }
@@ -68,9 +64,5 @@ public class BookImage {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

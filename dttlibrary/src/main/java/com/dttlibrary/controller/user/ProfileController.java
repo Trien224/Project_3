@@ -26,12 +26,21 @@ public class ProfileController {
 
     @GetMapping("/my")
     public String myBorrowings(Model model, Principal principal) {
+
         if (principal == null) {
             return "redirect:/login";
         }
+
         User user = userService.findByUsername(principal.getName());
-        List<Borrowing> borrowings = borrowingRepository.findByUserAndStatus(user, "borrowed");
+
+        List<Borrowing> borrowings =
+                borrowingRepository.findByUserAndStatus(
+                        user,
+                        Borrowing.Status.borrowed
+                );
+
         model.addAttribute("borrowings", borrowings);
         return "user/my-borrowings";
     }
+
 }

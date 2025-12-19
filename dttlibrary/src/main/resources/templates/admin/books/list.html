@@ -10,6 +10,7 @@
 <body>
 <div class="container-fluid">
     <div class="row">
+
         <!-- Sidebar -->
         <div class="col-md-2 sidebar">
             <h4>📚 DTT Library</h4>
@@ -26,40 +27,73 @@
             <h3 class="page-title mb-4">📚 Book Management</h3>
 
             <div class="mb-3 text-end">
-                <a href="/admin/books/create" class="btn btn-primary shadow-sm px-4">+ Add Book</a>
+                <a href="/admin/books/create" class="btn btn-primary shadow-sm px-4">
+                    + Add Book
+                </a>
             </div>
 
             <div class="card shadow-sm">
                 <div class="card-body">
+
                     <table class="table table-hover align-middle">
-                        <thead>
+                        <thead class="table-light">
                         <tr>
+                            <th style="width: 90px">Image</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th>ISBN</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr th:each="b : ${books}">
+
+                            <!-- IMAGE -->
+                            <td>
+                                <img th:if="${b.images != null and !b.images.isEmpty()}"
+                                     th:src="${b.images[0].url}"
+                                     style="height:60px; object-fit:cover"
+                                     class="rounded shadow-sm"/>
+
+                                <span th:if="${b.images == null or b.images.isEmpty()}"
+                                      class="text-muted small">
+                                    No image
+                                </span>
+                            </td>
+
+                            <!-- TITLE -->
                             <td th:text="${b.title}">Book Title</td>
+
+                            <!-- CATEGORY -->
                             <td th:text="${b.category != null ? b.category.name : 'N/A'}">Category</td>
-                            <td th:text="${b.isbn}">123456789</td>
+
+                            <!-- ISBN -->
+                            <td th:text="${b.isbn}">123456</td>
+
+                            <!-- ACTION -->
                             <td class="text-center">
+                                <a th:href="@{/admin/books/edit/{id}(id=${b.id})}"
+                                   class="btn btn-warning btn-sm me-1">
+                                    Edit
+                                </a>
+
                                 <a th:href="@{/admin/books/delete/{id}(id=${b.id})}"
-                                   class="btn btn-danger btn-sm shadow-sm"
+                                   class="btn btn-danger btn-sm"
                                    onclick="return confirm('Delete book?')">
                                     Delete
                                 </a>
                             </td>
+
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-
 </body>
 </html>

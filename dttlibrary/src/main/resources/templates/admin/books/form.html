@@ -28,16 +28,24 @@
 
             <div class="card shadow">
                 <div class="card-body">
-                    <form th:action="@{/admin/books/save}" th:object="${book}" method="post">
 
+                    <!-- 🔥 FORM -->
+                    <form th:action="@{/admin/books/save}"
+                          th:object="${book}"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        <!-- TITLE -->
                         <div class="mb-3">
-                            <label>Title</label>
+                            <label class="form-label">Title</label>
                             <input th:field="*{title}" class="form-control" required>
                         </div>
 
+                        <!-- CATEGORY (🔥 FIX Ở ĐÂY) -->
                         <div class="mb-3">
-                            <label>Category</label>
-                            <select th:field="*{category}" class="form-select">
+                            <label class="form-label">Category</label>
+                            <select th:field="*{category.id}" class="form-select" required>
+                                <option value="">-- Select category --</option>
                                 <option th:each="c : ${categories}"
                                         th:value="${c.id}"
                                         th:text="${c.name}">
@@ -45,13 +53,22 @@
                             </select>
                         </div>
 
+                        <!-- ISBN -->
                         <div class="mb-3">
-                            <label>ISBN</label>
+                            <label class="form-label">ISBN</label>
                             <input th:field="*{isbn}" class="form-control">
                         </div>
 
+                        <!-- IMAGE -->
+                        <div class="mb-3">
+                            <label class="form-label">Book Image</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+
+                        <!-- BUTTON -->
                         <button class="btn btn-success">Save</button>
                         <a href="/admin/books" class="btn btn-secondary">Back</a>
+
                     </form>
                 </div>
             </div>

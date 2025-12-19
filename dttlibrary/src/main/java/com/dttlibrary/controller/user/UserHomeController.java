@@ -1,9 +1,6 @@
 package com.dttlibrary.controller.user;
 
-import com.dttlibrary.model.User;
-import com.dttlibrary.service.BorrowingService;
-import com.dttlibrary.service.UserService;
-import org.springframework.security.core.Authentication;
+import com.dttlibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,24 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserHomeController {
 
-    private final BorrowingService borrowingService;
-    private final UserService userService;
+    private final BookService bookService;
 
-    public UserHomeController(BorrowingService borrowingService,
-                              UserService userService) {
-        this.borrowingService = borrowingService;
-        this.userService = userService;
+    public UserHomeController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping("/home")
-    public String home(Authentication authentication, Model model) {
+    public String home(Model model) {
 
-        String username = authentication.getName();
-        User user = userService.findByUsername(username);
-
-        model.addAttribute("user", user);
-        model.addAttribute("borrowings",
-                borrowingService.findByUserId(user.getId()));
+        model.addAttribute("books", bookService.findLatestBooks());
 
         return "user/home";
     }
