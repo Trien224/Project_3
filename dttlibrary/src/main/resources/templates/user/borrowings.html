@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/user-layout :: layout(
+          title='Sách đang mượn',
+          content=~{::content})">
+
+<div th:fragment="content">
+
+    <h3 class="text-primary mb-4">📚 Sách đang mượn</h3>
+
+    <table class="table table-bordered shadow-sm bg-white">
+        <thead class="table-primary">
+        <tr>
+            <th>Tên sách</th>
+            <th>Ngày mượn</th>
+            <th>Hạn trả</th>
+            <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b : ${borrowings}">
+            <td th:text="${b.book.title}"></td>
+            <td th:text="${b.borrowDate}"></td>
+            <td th:text="${b.dueDate}"></td>
+            <td>
+                <span class="badge bg-warning">Đang mượn</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</html>

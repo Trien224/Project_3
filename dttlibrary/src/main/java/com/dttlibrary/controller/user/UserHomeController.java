@@ -20,7 +20,6 @@ public class UserHomeController {
     public String home(Model model) {
 
         model.addAttribute("books", bookService.findLatestBooks());
-
         return "user/home";
     }
 }

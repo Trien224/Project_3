@@ -22,22 +22,14 @@ public class UserBookController {
         this.bookService = bookService;
         this.bookItemService = bookItemService;
     }
-
-    /**
-     * 📚 USER – DANH SÁCH SÁCH
-     */
     @GetMapping
     public String list(Model model) {
 
-        List<Book> books = bookService.findAll(); // an toàn, không lỗi
+        List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
 
-        return "user/books/list";
+        return "user/books";
     }
-
-    /**
-     * 📖 USER – CHI TIẾT SÁCH
-     */
     @GetMapping("/{id}")
     public String detail(@PathVariable Integer id, Model model) {
 
@@ -48,7 +40,6 @@ public class UserBookController {
 
         long available = bookItemService.countAvailableByBookId(id);
 
-        // nếu CHƯA có bảng book_images thì tạm comment 2 dòng dưới
         BookImage primaryImage = bookService.getPrimaryImage(id);
         List<BookImage> images = bookService.getImages(id);
 

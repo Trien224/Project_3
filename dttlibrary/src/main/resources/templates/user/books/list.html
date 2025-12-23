@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="layout/user-layout :: layout(
-          title='Trang chủ',
+          title='Danh sách sách',
           content=~{::content})">
 
 <div th:fragment="content">
 
-    <div class="text-center mb-5">
-        <h1 class="text-primary fw-bold">Chào mừng đến với DTT Library</h1>
-        <p class="text-muted">Kho tri thức xanh – mượn sách nhanh chóng</p>
-        <a th:href="@{/user/books}" class="btn btn-primary btn-lg">📚 Xem sách</a>
-    </div>
-
-    <h4 class="text-primary mb-3">📖 Sách mới</h4>
+    <h3 class="text-primary mb-4">📚 Danh sách sách</h3>
 
     <div class="row g-4">
         <div class="col-md-3" th:each="book : ${books}">
-            <div class="card shadow-sm border-0 h-100">
+            <div class="card border-0 shadow-sm h-100">
                 <img th:src="@{${book.images[0].url}}"
                      class="card-img-top"
-                     style="height:180px;object-fit:cover">
+                     style="height:200px;object-fit:cover">
 
                 <div class="card-body">
                     <h6 th:text="${book.title}"></h6>
                     <a th:href="@{/user/books/{id}(id=${book.id})}"
-                       class="btn btn-sm btn-outline-primary">
-                        Chi tiết
+                       class="btn btn-sm btn-primary">
+                        Xem chi tiết
                     </a>
                 </div>
             </div>
