@@ -24,12 +24,12 @@ public class AdminDashboardController {
 
     @GetMapping
     public String dashboard(Model model) {
+
         model.addAttribute("totalBooks", bookService.countBooks());
         model.addAttribute("totalItems", bookItemService.countItems());
         model.addAttribute("borrowed", borrowingService.countBorrowed());
         model.addAttribute("overdue", borrowingService.countOverdue());
 
-        model.addAttribute("content", "admin/dashboard");
-        return "layout/admin-layout";
+        return "admin/dashboard";
     }
 }

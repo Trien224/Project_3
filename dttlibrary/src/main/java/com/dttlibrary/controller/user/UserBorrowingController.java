@@ -4,16 +4,17 @@ import com.dttlibrary.model.Borrowing;
 import com.dttlibrary.model.User;
 import com.dttlibrary.service.BorrowingService;
 import com.dttlibrary.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/borrowings")
+@RequestMapping("/user")
 public class UserBorrowingController {
 
     private final BorrowingService borrowingService;
@@ -25,21 +26,26 @@ public class UserBorrowingController {
         this.userService = userService;
     }
 
-    // 👉 Lịch sử mượn sách của user
-    @GetMapping
-    public String borrowHistory(Model model, Principal principal) {
+    // 📘 Danh sách / lịch sử mượn sách của user
+    @GetMapping("/borrowings")
+    public String borrowings(@AuthenticationPrincipal UserDetails userDetails,
+                             Model model) {
 
-        if (principal == null) {
+        // 🔐 Chưa đăng nhập
+        if (userDetails == null) {
             return "redirect:/login";
         }
 
-        User user = userService.findByUsername(principal.getName());
+        // 👤 User hiện tại
+        User user = userService.findByUsername(userDetails.getUsername());
 
+        // 📚 Danh sách mượn
         List<Borrowing> borrowings =
-                borrowingService.findByUser(user);
+                borrowingService.findByUserId(user.getId());
 
         model.addAttribute("borrowings", borrowings);
 
-        return "user/borrow-history";
+        // 👉 View tự gắn user-layout
+        return "user/borrowings";
     }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/user-layout :: layout(
+          title='Hồ sơ cá nhân',
+          content=~{::content})">
+
+<div th:fragment="content">
+
+    <h3 class="text-primary mb-4">👤 Hồ sơ cá nhân</h3>
+
+    <div class="card shadow-sm border-0 p-4" style="max-width:600px">
+        <p><b>Tên:</b> <span th:text="${user.fullName}"></span></p>
+        <p><b>Email:</b> <span th:text="${user.email}"></span></p>
+        <p><b>Số điện thoại:</b> <span th:text="${user.phone}"></span></p>
+
+        <a href="#" class="btn btn-outline-primary mt-3">✏️ Cập nhật</a>
+    </div>
+
+</div>
+</html>

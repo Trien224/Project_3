@@ -20,7 +20,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance()); // ❌ không mã hóa
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         return provider;
     }
 
@@ -32,29 +32,26 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/", "/css/**").permitAll()
+                        .requestMatchers("/", "/login", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("MEMBER")
                         .anyRequest().authenticated()
                 )
 
-
                 .formLogin(form -> form
                         .loginPage("/login")
                         .successHandler((request, response, authentication) -> {
-
-                            authentication.getAuthorities().forEach(role -> {
+                            authentication.getAuthorities().forEach(a -> {
                                 try {
-                                    if (role.getAuthority().equals("ROLE_ADMIN")) {
+                                    if (a.getAuthority().equals("ROLE_ADMIN")) {
                                         response.sendRedirect("/admin");
-                                    } else if (role.getAuthority().equals("ROLE_MEMBER")) {
+                                    } else if (a.getAuthority().equals("ROLE_MEMBER")) {
                                         response.sendRedirect("/user/home");
                                     }
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
                             });
-
                         })
                         .permitAll()
                 )

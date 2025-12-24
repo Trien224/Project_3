@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/user-layout :: layout(
+          title=${book.title},
+          content=~{::content})">
+
+<div th:fragment="content">
+
+    <h2 class="text-primary mb-3" th:text="${book.title}"></h2>
+
+    <p><b>Tác giả:</b> <span th:text="${book.author.name}"></span></p>
+    <p><b>Còn lại:</b> <span th:text="${available}"></span> cuốn</p>
+
+    <div class="row g-3 mt-4">
+        <div class="col-md-3" th:each="img : ${images}">
+            <img th:src="@{${img.url}}"
+                 class="img-fluid rounded shadow">
+        </div>
+    </div>
+
+    <p class="mt-4" th:text="${book.description}"></p>
+
+</div>
+</html>

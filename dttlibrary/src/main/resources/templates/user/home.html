@@ -6,31 +6,72 @@
 
 <div th:fragment="content">
 
-    <div class="text-center mb-5">
-        <h1 class="text-primary fw-bold">Chào mừng đến với DTT Library</h1>
-        <p class="text-muted">Kho tri thức xanh – mượn sách nhanh chóng</p>
-        <a th:href="@{/user/books}" class="btn btn-primary btn-lg">📚 Xem sách</a>
-    </div>
+    <!-- ===== HERO ===== -->
+    <section class="hero mb-5">
+        <div class="row align-items-center">
 
-    <h4 class="text-primary mb-3">📖 Sách mới</h4>
+            <div class="col-md-6">
+                <h1 class="fw-bold text-primary">
+                    Chào mừng đến với DTT Library
+                </h1>
+                <p class="text-muted">
+                    Khám phá kho tri thức – mượn sách dễ dàng, nhanh chóng.
+                </p>
 
-    <div class="row g-4">
-        <div class="col-md-3" th:each="book : ${books}">
-            <div class="card shadow-sm border-0 h-100">
-                <img th:src="@{${book.images[0].url}}"
-                     class="card-img-top"
-                     style="height:180px;object-fit:cover">
+                <a th:href="@{/user/books}" class="btn btn-primary btn-lg me-2">
+                    📚 Xem sách
+                </a>
+            </div>
 
-                <div class="card-body">
+            <div class="col-md-6 text-center">
+                <img th:src="@{/uploads/hero.png}"
+                     class="img-fluid"
+                     style="max-height:300px"
+                     alt="Library">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== SÁCH MỚI ===== -->
+    <section class="mb-5">
+        <h3 class="mb-4 text-primary">📖 Sách mới</h3>
+
+        <div class="row g-4">
+            <div class="col-md-3" th:each="book : ${newBooks}">
+                <div class="card book-card p-3 h-100">
+
+                    <img th:if="${book.images != null and !book.images.isEmpty()}"
+                         th:src="@{${book.images[0].url}}"
+                         class="img-fluid mb-3"
+                         style="height:160px;object-fit:cover;border-radius:12px">
+
                     <h6 th:text="${book.title}"></h6>
+
+                    <small class="text-muted">
+                        Tác giả:
+                        <span th:text="${book.author.name}"></span>
+                    </small>
+
                     <a th:href="@{/user/books/{id}(id=${book.id})}"
-                       class="btn btn-sm btn-outline-primary">
-                        Chi tiết
+                       class="btn btn-sm btn-outline-primary mt-2">
+                        Xem chi tiết
                     </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- ===== THỂ LOẠI ===== -->
+    <section class="mb-5">
+        <h3 class="mb-4 text-primary">📚 Thể loại</h3>
+
+        <div class="row g-4">
+            <div class="col-md-3" th:each="c : ${categories}">
+                <div class="category-item" th:text="${c.name}"></div>
+            </div>
+        </div>
+    </section>
 
 </div>
 </html>

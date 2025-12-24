@@ -1,4 +1,4 @@
-package com.dttlibrary.controller;
+package com.dttlibrary.controller.user;
 
 import com.dttlibrary.model.Book;
 import com.dttlibrary.model.BookImage;
@@ -6,7 +6,9 @@ import com.dttlibrary.service.BookItemService;
 import com.dttlibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -22,14 +24,19 @@ public class UserBookController {
         this.bookService = bookService;
         this.bookItemService = bookItemService;
     }
+
+    // 📚 Danh sách sách
     @GetMapping
     public String list(Model model) {
 
         List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
 
-        return "user/books";
+        // 👉 View tự dùng user-layout
+        return "user/books/list";
     }
+
+    // 📖 Chi tiết sách
     @GetMapping("/{id}")
     public String detail(@PathVariable Integer id, Model model) {
 
@@ -38,8 +45,10 @@ public class UserBookController {
             return "redirect:/user/books";
         }
 
+        // 📦 Số bản còn mượn được
         long available = bookItemService.countAvailableByBookId(id);
 
+        // 🖼️ Ảnh sách
         BookImage primaryImage = bookService.getPrimaryImage(id);
         List<BookImage> images = bookService.getImages(id);
 

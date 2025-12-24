@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/user")
 public class UserHomeController {
@@ -19,7 +21,9 @@ public class UserHomeController {
     @GetMapping("/home")
     public String home(Model model) {
 
-        model.addAttribute("books", bookService.findLatestBooks());
+        model.addAttribute("newBooks", bookService.findAll()); // tạm
+        model.addAttribute("categories", List.of());
+
         return "user/home";
     }
 }
