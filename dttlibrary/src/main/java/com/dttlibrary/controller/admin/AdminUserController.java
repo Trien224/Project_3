@@ -20,16 +20,14 @@ public class AdminUserController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("content", "admin/users/list");
-        return "admin/admin-layout";
+        return "admin/users/list";
     }
 
     // ===== CREATE =====
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("content", "admin/users/form");
-        return "admin/admin-layout";
+        return "admin/users/form";
     }
 
     // ===== SAVE =====
@@ -43,8 +41,7 @@ public class AdminUserController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("user", userService.findById(id));
-        model.addAttribute("content", "admin/users/form");
-        return "admin/admin-layout";
+        return "admin/users/form";
     }
 
     // ===== DELETE =====

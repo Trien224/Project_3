@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sách | DTT Library</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #eaf4ff;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .book-card {
+            border: none;
+            border-radius: 14px;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(13, 110, 253, .15);
+        }
+
+        .book-card img {
+            height: 220px;
+            object-fit: cover;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+        }
+
+        .book-card h6 {
+            font-weight: 600;
+            min-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <h3 class="text-primary mb-4">📚 Kho sách</h3>
+
+    <div class="row g-4">
+
+        <!-- LOOP BOOK -->
+        <div class="col-md-3" th:each="b : ${books}">
+            <div class="card book-card shadow-sm h-100">
+
+                <img class="card-img-top"
+                     th:src="${#lists.isEmpty(b.images) ? '/img/no-image.png' : b.images[0].url}"
+                     alt="Book image">
+
+                <div class="card-body d-flex flex-column">
+                    <h6 th:text="${b.title}">Tên sách</h6>
+
+                    <a th:href="@{/books/{id}(id=${b.id})}"
+                       class="btn btn-sm btn-primary mt-auto">
+                        Xem chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMPTY -->
+        <div th:if="${books == null or books.isEmpty()}"
+             class="text-center text-muted py-5">
+            Chưa có sách nào.
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

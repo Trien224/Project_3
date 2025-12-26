@@ -23,16 +23,14 @@ public class AdminBookItemController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("items", itemService.findAll());
-        model.addAttribute("content", "admin/book-items/list");
-        return "admin/admin-layout";
+        return "admin/book-items/list";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("item", new BookItem());
         model.addAttribute("books", bookService.findAll());
-        model.addAttribute("content", "admin/book-items/form");
-        return "admin/admin-layout";
+        return "admin/book-items/form";
     }
 
     @PostMapping("/save")
@@ -51,4 +49,3 @@ public class AdminBookItemController {
     }
 
 }
-

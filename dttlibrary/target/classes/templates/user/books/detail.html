@@ -6,19 +6,55 @@
 
 <div th:fragment="content">
 
-    <h2 class="text-primary mb-3" th:text="${book.title}"></h2>
+    <div class="row">
+        <div class="col-md-4">
+             <img th:if="${primaryImage != null}"
+                  th:src="@{${primaryImage.url}}"
+                  class="img-fluid rounded shadow w-100">
+             <img th:if="${primaryImage == null}"
+                  src="https://via.placeholder.com/300x450?text=No+Image"
+                  class="img-fluid rounded shadow w-100">
+        </div>
 
-    <p><b>Tác giả:</b> <span th:text="${book.author.name}"></span></p>
-    <p><b>Còn lại:</b> <span th:text="${available}"></span> cuốn</p>
+        <div class="col-md-8">
+            <h2 class="text-primary mb-3" th:text="${book.title}"></h2>
 
-    <div class="row g-3 mt-4">
-        <div class="col-md-3" th:each="img : ${images}">
-            <img th:src="@{${img.url}}"
-                 class="img-fluid rounded shadow">
+            <p><b>Tác giả:</b> <span th:text="${book.author != null ? book.author.name : 'N/A'}"></span></p>
+            <p><b>Thể loại:</b> <span th:text="${book.category != null ? book.category.name : 'N/A'}"></span></p>
+            <p><b>Năm xuất bản:</b> <span th:text="${book.publishedYear}"></span></p>
+            <p><b>ISBN:</b> <span th:text="${book.isbn}"></span></p>
+
+            <hr>
+
+            <p><b>Còn lại:</b> <span th:text="${available}"></span> cuốn</p>
+
+            <div th:if="${available > 0 && availableItem != null}">
+                <form th:action="@{/borrowings/borrow}" method="post">
+                    <input type="hidden" name="bookItemId" th:value="${availableItem.id}" />
+                    <button type="submit" class="btn btn-success btn-lg">
+                        📖 Mượn sách ngay
+                    </button>
+                </form>
+            </div>
+
+            <div th:if="${available == 0}">
+                <button class="btn btn-secondary btn-lg" disabled>
+                    ❌ Hết sách
+                </button>
+            </div>
+
+            <p class="mt-4" th:text="${book.description}"></p>
         </div>
     </div>
 
-    <p class="mt-4" th:text="${book.description}"></p>
+    <div class="row g-3 mt-4" th:if="${images != null && !images.isEmpty()}">
+        <h4 class="text-primary">Ảnh khác</h4>
+        <div class="col-md-2" th:each="img : ${images}">
+            <img th:src="@{${img.url}}"
+                 class="img-fluid rounded shadow"
+                 style="height: 100px; object-fit: cover;">
+        </div>
+    </div>
 
 </div>
 </html>

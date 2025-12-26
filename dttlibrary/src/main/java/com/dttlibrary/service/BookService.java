@@ -2,6 +2,7 @@ package com.dttlibrary.service;
 
 import com.dttlibrary.model.Book;
 import com.dttlibrary.model.BookImage;
+import com.dttlibrary.model.BookItem;
 import com.dttlibrary.repository.BookImageRepository;
 import com.dttlibrary.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,19 @@ public class BookService {
 
     // ===== CRUD =====
     public List<Book> findAll() {
-        return bookRepository.findAll();
+        return bookRepository.findAllWithDetails();
+    }
+
+    public List<Book> findAllWithAvailableItems() {
+        return bookRepository.findAllWithAvailableItems(BookItem.Status.available);
     }
 
     public Book findById(Integer id) {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public void save(Book book) {
-        bookRepository.save(book);
+    public Book save(Book book) {
+        return bookRepository.save(book);
     }
 
     public void delete(Integer id) {

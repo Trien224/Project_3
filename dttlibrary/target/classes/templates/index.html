@@ -71,7 +71,7 @@
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" th:href="@{/user/home}">
+        <a class="navbar-brand fw-bold text-primary" th:href="@{/}">
             📘 DTT Library
         </a>
 
@@ -79,15 +79,15 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/home}">Trang chủ</a>
+                    <a class="nav-link" th:href="@{/}">Trang chủ</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/books}">Sách</a>
+                    <a class="nav-link" th:href="@{/books}">Sách</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/my-borrowings}">Sách đã mượn</a>
+                    <a class="nav-link" th:href="@{/user/borrowings}">Sách đã mượn</a>
                 </li>
 
                 <li class="nav-item">
@@ -108,7 +108,7 @@
         <p>Kho tri thức mở – mượn sách dễ dàng, nhanh chóng</p>
 
         <div class="mt-4">
-            <a th:href="@{/user/books}" class="btn btn-primary btn-lg me-2">
+            <a th:href="@{/books}" class="btn btn-primary btn-lg me-2">
                 📚 Xem sách
             </a>
             <a th:href="@{/login}" class="btn btn-outline-primary btn-lg">
@@ -135,10 +135,10 @@
 
                 <small class="text-muted">
                     Tác giả:
-                    <span th:text="${book.author.name}"></span>
+                    <span th:text="${book.author != null ? book.author.name : 'N/A'}"></span>
                 </small>
 
-                <a th:href="@{/user/books/{id}(id=${book.id})}"
+                <a th:href="@{/books/{id}(id=${book.id})}"
                    class="btn btn-sm btn-outline-primary mt-2">
                     Xem chi tiết
                 </a>

@@ -2,6 +2,7 @@ package com.dttlibrary.controller.user;
 
 import com.dttlibrary.model.Book;
 import com.dttlibrary.model.BookImage;
+import com.dttlibrary.model.BookItem;
 import com.dttlibrary.service.BookItemService;
 import com.dttlibrary.service.BookService;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class UserBookController {
     @GetMapping
     public String list(Model model) {
 
-        List<Book> books = bookService.findAll();
+        List<Book> books = bookService.findAllWithAvailableItems();
         model.addAttribute("books", books);
 
         // 👉 View tự dùng user-layout
@@ -47,6 +48,9 @@ public class UserBookController {
 
         // 📦 Số bản còn mượn được
         long available = bookItemService.countAvailableByBookId(id);
+        
+        // 📦 Lấy 1 bản copy available để mượn
+        BookItem availableItem = bookItemService.findFirstAvailable(id);
 
         // 🖼️ Ảnh sách
         BookImage primaryImage = bookService.getPrimaryImage(id);
@@ -54,6 +58,7 @@ public class UserBookController {
 
         model.addAttribute("book", book);
         model.addAttribute("available", available);
+        model.addAttribute("availableItem", availableItem);
         model.addAttribute("primaryImage", primaryImage);
         model.addAttribute("images", images);
 

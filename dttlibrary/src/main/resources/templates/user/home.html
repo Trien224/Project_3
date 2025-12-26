@@ -50,7 +50,7 @@
 
                     <small class="text-muted">
                         Tác giả:
-                        <span th:text="${book.author.name}"></span>
+                        <span th:text="${book.author != null ? book.author.name : 'N/A'}"></span>
                     </small>
 
                     <a th:href="@{/user/books/{id}(id=${book.id})}"

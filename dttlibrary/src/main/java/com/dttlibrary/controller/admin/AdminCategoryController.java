@@ -20,37 +20,28 @@ public class AdminCategoryController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("content", "admin/categories/list");
-        return "admin/admin-layout";
+        return "admin/categories/list";
     }
 
     // CREATE FORM
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("category", new Category());
-        model.addAttribute("content", "admin/categories/form");
-        return "admin/admin-layout";
+        return "admin/categories/form";
     }
 
-    // EDIT FORM ✅
+    // EDIT FORM
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("category", categoryService.findById(id));
-        model.addAttribute("content", "admin/categories/form");
-        return "admin/admin-layout";
+        return "admin/categories/form";
     }
 
     // SAVE (CREATE + EDIT)
     @PostMapping("/save")
-    public String save(@ModelAttribute Category category, Model model) {
-        try {
-            categoryService.save(category);
-            return "redirect:/admin/categories";
-        } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("content", "admin/categories/form");
-            return "admin/admin-layout";
-        }
+    public String save(@ModelAttribute Category category) {
+        categoryService.save(category);
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/delete/{id}")

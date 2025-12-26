@@ -17,8 +17,7 @@ public class AdminBorrowingController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("borrowings", borrowingService.findAll());
-        model.addAttribute("content", "admin/borrowings/list");
-        return "layout/admin-layout";
+        return "admin/borrowings/list";
     }
 
     @GetMapping("/return/{id}")

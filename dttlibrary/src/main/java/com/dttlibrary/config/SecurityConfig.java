@@ -11,9 +11,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final CustomLoginSuccessHandler customLoginSuccessHandler;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService, CustomLoginSuccessHandler customLoginSuccessHandler) {
         this.userDetailsService = userDetailsService;
+        this.customLoginSuccessHandler = customLoginSuccessHandler;
     }
 
     @Bean
@@ -32,27 +34,15 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/css/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/login", "/css/**", "/images/**", "/uploads/**", "/books/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasRole("MEMBER")
+                        .requestMatchers("/user/**").hasAnyRole("MEMBER", "LIBRARIAN")
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .successHandler((request, response, authentication) -> {
-                            authentication.getAuthorities().forEach(a -> {
-                                try {
-                                    if (a.getAuthority().equals("ROLE_ADMIN")) {
-                                        response.sendRedirect("/admin");
-                                    } else if (a.getAuthority().equals("ROLE_MEMBER")) {
-                                        response.sendRedirect("/user/home");
-                                    }
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            });
-                        })
+                        .successHandler(customLoginSuccessHandler)
                         .permitAll()
                 )
 

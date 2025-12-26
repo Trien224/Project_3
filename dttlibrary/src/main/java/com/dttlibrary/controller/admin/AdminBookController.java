@@ -45,25 +45,40 @@ public class AdminBookController {
         return "admin/books/form";
     }
 
+    // ===== EDIT =====
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("book", bookService.findById(id));
+        model.addAttribute("categories", categoryService.findAll());
+        return "admin/books/form";
+    }
+
     // ===== SAVE =====
     @PostMapping("/save")
     public String save(@ModelAttribute Book book,
                        @RequestParam(required = false) MultipartFile image) {
 
-        bookService.save(book);
+        Book savedBook = bookService.save(book);
 
         if (image != null && !image.isEmpty()) {
-
             String fileName = fileStorageService.store(image);
 
             BookImage img = new BookImage();
-            img.setBook(book);
+            img.setBook(savedBook);
             img.setUrl("/uploads/" + fileName);
             img.setIsPrimary(true);
 
             bookImageService.save(img);
         }
 
+        return "redirect:/admin/books";
+    }
+
+
+    // ===== DELETE =====
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        bookService.delete(id);
         return "redirect:/admin/books";
     }
 }

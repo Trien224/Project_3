@@ -21,6 +21,10 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     @Column(length = 50)
     private String isbn;
@@ -37,6 +41,10 @@ public class Book {
     // ===== IMAGES =====
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookImage> images;
+
+    // ===== BOOK ITEMS =====
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<BookItem> bookItems;
 
     // ===== LIFECYCLE =====
     @PrePersist
@@ -83,6 +91,14 @@ public class Book {
         this.category = category;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public String getIsbn() {
         return isbn;
     }
@@ -121,5 +137,13 @@ public class Book {
 
     public void setImages(List<BookImage> images) {
         this.images = images;
+    }
+
+    public List<BookItem> getBookItems() {
+        return bookItems;
+    }
+
+    public void setBookItems(List<BookItem> bookItems) {
+        this.bookItems = bookItems;
     }
 }

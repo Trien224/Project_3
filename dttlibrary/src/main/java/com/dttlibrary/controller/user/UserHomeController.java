@@ -21,7 +21,7 @@ public class UserHomeController {
     @GetMapping("/home")
     public String home(Model model) {
 
-        model.addAttribute("newBooks", bookService.findAll()); // tạm
+        model.addAttribute("newBooks", bookService.findLatestBooks());
         model.addAttribute("categories", List.of());
 
         return "user/home";

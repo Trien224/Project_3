@@ -4,7 +4,11 @@ import com.dttlibrary.model.User;
 import com.dttlibrary.service.BorrowingService;
 import com.dttlibrary.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -28,12 +32,12 @@ public class BorrowingController {
         User user = userService.findByUsername(principal.getName());
         borrowingService.borrowBook(bookItemId, user.getId());
 
-        return "redirect:/books";
+        return "redirect:/user/borrowings";
     }
 
-    @PostMapping("/return/{id}")
+    @GetMapping("/return/{id}")
     public String returnBook(@PathVariable Integer id) {
         borrowingService.returnBook(id);
-        return "redirect:/profile";
+        return "redirect:/user/borrowings";
     }
 }
