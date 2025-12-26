@@ -1,90 +1,107 @@
- <style>
-        body {
-          background-color: #f4f3ff;
-          font-family: "Poppins", sans-serif;
-        }
+:root {
+    --admin-primary: #007bff;
+    --admin-primary-light: #5da3ff;
+    --admin-sidebar-bg: rgba(33, 37, 41, 0.9); /* Nền mờ cho sidebar */
+    --admin-main-bg: #f4f7f9;
+    --admin-card-bg: #ffffff;
+    --admin-shadow-color: rgba(0, 123, 255, 0.15);
+}
 
-        /* Sidebar */
-        .sidebar {
-          background: linear-gradient(180deg, #7c3aed, #6d28d9);
-          color: #fff;
-          min-height: 100vh;
-          border-radius: 20px;
-          padding: 2rem 1rem;
-          position: sticky;
-          top: 0;
-        }
-        .sidebar h4 {
-          font-weight: 600;
-          margin-bottom: 2rem;
-        }
-        .sidebar a {
-          color: #e9d5ff;
-          text-decoration: none;
-          display: block;
-          padding: 0.6rem 1rem;
-          border-radius: 8px;
-          transition: 0.2s;
-          font-size: 0.95rem;
-        }
-        .sidebar a:hover,
-        .sidebar a.active {
-          background-color: #8b5cf6;
-          color: #fff;
-        }
+body {
+    background-color: var(--admin-main-bg);
+    font-family: 'Inter', sans-serif;
+}
 
-        /* Main area */
-        .main {
-          padding: 2rem 3rem;
-        }
+/* ===== SIDEBAR (Glassmorphism) ===== */
+.sidebar {
+    background-color: var(--admin-sidebar-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 100vh;
+    padding: 20px;
+}
 
-        .welcome-card {
-          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-          color: #fff;
-          border-radius: 20px;
-          padding: 2rem 2.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
-        }
-        .welcome-card h3 {
-          font-weight: 600;
-        }
+.sidebar h4 {
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        /* Stats cards */
-        .stat-card {
-          border: none;
-          border-radius: 16px;
-          background: #fff;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-          text-align: center;
-          padding: 1.5rem 1rem;
-          transition: transform 0.2s;
-        }
-        .stat-card:hover {
-          transform: translateY(-5px);
-        }
-        .stat-card h6 {
-          color: #6b7280;
-          font-size: 0.95rem;
-        }
-        .stat-card h3 {
-          font-weight: 700;
-          color: #4c1d95;
-        }
+.sidebar a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        /* Profile section */
-        .profile {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-        .profile img {
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 2px solid #8b5cf6;
-        }
-    </style>
+.sidebar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.sidebar a.active {
+    background-color: var(--admin-primary);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+    padding: 30px;
+}
+
+.page-title {
+    font-weight: 700;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+}
+
+/* ===== STAT CARD (3D Effect) ===== */
+.stat-card {
+    background-image: linear-gradient(to top, #ffffff, #fdfdff);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 25px var(--admin-shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px var(--admin-shadow-color);
+}
+
+.stat-card h6 {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.stat-card h3 {
+    color: var(--admin-primary);
+    font-weight: 700;
+}
+
+/* ===== WELCOME CARD (Gradient) ===== */
+.welcome-card {
+    background-image: linear-gradient(135deg, var(--admin-primary-light), var(--admin-primary));
+    color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
+}
+
+.welcome-card .profile img {
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+}

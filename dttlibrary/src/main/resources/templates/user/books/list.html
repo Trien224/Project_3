@@ -4,21 +4,43 @@
           title='Danh sách sách',
           content=~{::content})">
 
+<head>
+    <style>
+        .book-card {
+            background-color: var(--card-bg-color);
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* To keep image corners rounded */
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 119, 255, 0.2);
+        }
+    </style>
+</head>
+
 <div th:fragment="content">
 
     <h3 class="text-primary mb-4">📚 Danh sách sách</h3>
 
     <div class="row g-4">
         <div class="col-md-3" th:each="book : ${books}">
-            <div class="card border-0 shadow-sm h-100">
-                <img th:src="@{${book.images[0].url}}"
+            <div class="card book-card h-100">
+                <img th:if="${book.images != null and !book.images.isEmpty()}"
+                     th:src="@{${book.images[0].url}}"
                      class="card-img-top"
                      style="height:200px;object-fit:cover">
 
-                <div class="card-body">
-                    <h6 th:text="${book.title}"></h6>
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title" th:text="${book.title}"></h6>
+                    <p class="card-text text-muted small" th:if="${book.author != null}">
+                        bởi <span th:text="${book.author.name}"></span>
+                    </p>
                     <a th:href="@{/user/books/{id}(id=${book.id})}"
-                       class="btn btn-sm btn-primary">
+                       class="btn btn-sm btn-outline-primary mt-auto">
                         Xem chi tiết
                     </a>
                 </div>

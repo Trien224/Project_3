@@ -14,6 +14,7 @@
             <h4>📚 DTT Library</h4>
             <a href="/admin">Dashboard</a>
             <a href="/admin/books" class="active">Books</a>
+            <a href="/admin/book-items">Book Items</a>
             <a href="/admin/categories">Categories</a>
             <a href="/admin/borrowings">Borrowings</a>
             <a href="/admin/users">Users</a>
@@ -31,7 +32,7 @@
                 </a>
             </div>
 
-            <div class="card shadow-sm">
+            <div class="card">
                 <div class="card-body">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
@@ -49,7 +50,7 @@
                             <td>
                                 <img th:if="${b.images != null and !b.images.isEmpty()}"
                                      th:src="@{${b.images[0].url}}"
-                                     style="height:60px; object-fit:cover"
+                                     style="height:60px; width: 50px; object-fit:cover"
                                      class="rounded shadow-sm"/>
                                 <span th:if="${b.images == null or b.images.isEmpty()}" class="text-muted small">No image</span>
                             </td>
@@ -58,7 +59,7 @@
                             <td th:text="${b.author?.name}">Author</td>
                             <td th:text="${b.isbn}">123456</td>
                             <td class="text-center">
-                                <a th:href="@{/admin/books/edit/{id}(id=${b.id})}" class="btn btn-warning btn-sm me-1">Edit</a>
+                                <a th:href="@{/admin/books/edit/{id}(id=${b.id})}" class="btn btn-warning btn-sm">Edit</a>
                                 <a th:href="@{/admin/books/delete/{id}(id=${b.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Delete book?')">Delete</a>
                             </td>
                         </tr>
