@@ -31,6 +31,23 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+    
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+
+    public void changePassword(String username, String currentPassword, String newPassword) {
+        User user = findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found.");
+        }
+        // Vì không mã hóa, ta so sánh trực tiếp
+        if (!user.getPassword().equals(currentPassword)) {
+            throw new RuntimeException("Mật khẩu hiện tại không đúng.");
+        }
+        user.setPassword(newPassword);
+        userRepository.save(user);
+    }
 
     public void delete(Integer id) {
         userRepository.deleteById(id);

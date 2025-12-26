@@ -22,6 +22,7 @@
             <a href="/admin/books">Books</a>
             <a href="/admin/book-items" class="active">Book Items</a>
             <a href="/admin/categories">Categories</a>
+            <a href="/admin/authors">Authors</a>
             <a href="/admin/borrowings">Borrowings</a>
             <a href="/admin/users">Users</a>
             <hr class="text-light">
@@ -30,7 +31,11 @@
 
         <!-- Main -->
         <div class="col-md-10 main">
-            <h3 class="page-title mb-4">➕ Add Book Item</h3>
+            <h3 class="page-title mb-4" th:text="${item.id == null} ? '➕ Add Book Item' : '✏️ Edit Book Item'"></h3>
+
+            <!-- Error/Success Messages -->
+            <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+            <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
             <div class="card">
                 <div class="card-body">
@@ -43,7 +48,8 @@
                                 <option value="">-- Select book --</option>
                                 <option th:each="b : ${books}"
                                         th:value="${b.id}"
-                                        th:text="${b.title}">
+                                        th:text="${b.title}"
+                                        th:selected="${item.book != null and item.book.id == b.id}">
                                 </option>
                             </select>
                         </div>
@@ -61,6 +67,11 @@
                                         th:text="${s}">
                                 </option>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Location</label>
+                            <input class="form-control" th:field="*{location}">
                         </div>
 
                         <div class="d-flex gap-2 mt-4">

@@ -1,11 +1,13 @@
 package com.dttlibrary.controller.admin;
 
+import com.dttlibrary.model.Book;
 import com.dttlibrary.model.BookItem;
 import com.dttlibrary.service.BookItemService;
 import com.dttlibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/book-items")
@@ -28,23 +30,55 @@ public class AdminBookItemController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("item", new BookItem());
+        if (!model.containsAttribute("item")) {
+            model.addAttribute("item", new BookItem());
+        }
+        model.addAttribute("books", bookService.findAll());
+        return "admin/book-items/form";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
+        BookItem item = itemService.findById(id);
+        if (item == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Book Item not found.");
+            return "redirect:/admin/book-items";
+        }
+        model.addAttribute("item", item);
         model.addAttribute("books", bookService.findAll());
         return "admin/book-items/form";
     }
 
     @PostMapping("/save")
-    public String save(@RequestParam Integer bookId,
-                       @ModelAttribute BookItem item) {
+    public String save(@ModelAttribute BookItem item,
+                       @RequestParam("bookId") Integer bookId,
+                       RedirectAttributes redirectAttributes) {
 
-        item.setBook(bookService.findById(bookId));
+        Book book = bookService.findById(bookId);
+        if (book == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not save: Book not found for ID " + bookId);
+            redirectAttributes.addFlashAttribute("item", item);
+            return "redirect:/admin/book-items/create";
+        }
 
-        // nếu status null thì set mặc định (ENUM)
+        item.setBook(book);
+
         if (item.getStatus() == null) {
             item.setStatus(BookItem.Status.available);
         }
 
-        itemService.save(item);
+        try {
+            itemService.save(item);
+            redirectAttributes.addFlashAttribute("successMessage", "Book Item saved successfully.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not save book item. Barcode might already exist.");
+            redirectAttributes.addFlashAttribute("item", item);
+            if (item.getId() == null) {
+                return "redirect:/admin/book-items/create";
+            } else {
+                return "redirect:/admin/book-items/edit/" + item.getId();
+            }
+        }
         return "redirect:/admin/book-items";
     }
 

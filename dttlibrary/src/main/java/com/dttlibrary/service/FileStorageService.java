@@ -13,7 +13,9 @@ import java.util.UUID;
 @Service
 public class FileStorageService {
 
-    private final Path uploadDir = Paths.get("uploads");
+    // Sử dụng đường dẫn tuyệt đối hoặc tương đối chính xác hơn
+    // Trong WebConfig chúng ta đã map /uploads/** tới src/main/resources/static/uploads/
+    private final Path uploadDir = Paths.get("src/main/resources/static/uploads");
 
     public FileStorageService() {
         try {

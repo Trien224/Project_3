@@ -15,6 +15,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findTop8ByOrderByCreatedAtDesc();
 
-    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN b.bookItems bi WHERE bi.status = :status")
+    @Query("SELECT DISTINCT b FROM Book b JOIN b.bookItems bi WHERE bi.status = :status")
     List<Book> findAllWithAvailableItems(@Param("status") BookItem.Status status);
 }

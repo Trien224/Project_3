@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/user-layout :: layout(
+          title='Chỉnh sửa thông tin',
+          content=~{::content})">
+
+<div th:fragment="content">
+
+    <h3 class="text-primary mb-4">✏️ Chỉnh sửa thông tin cá nhân</h3>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <form th:action="@{/user/profile/update}" th:object="${user}" method="post">
+                <!-- ID và Username là các trường ẩn, không cho sửa -->
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{username}" />
+
+                <div class="mb-3">
+                    <label for="fullName" class="form-label fw-semibold">Họ và tên</label>
+                    <input type="text" id="fullName" class="form-control" th:field="*{fullName}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email</label>
+                    <input type="email" id="email" class="form-control" th:field="*{email}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label fw-semibold">Số điện thoại</label>
+                    <input type="text" id="phone" class="form-control" th:field="*{phone}">
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">💾 Lưu thay đổi</button>
+                    <a th:href="@{/user/profile}" class="btn btn-secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</html>

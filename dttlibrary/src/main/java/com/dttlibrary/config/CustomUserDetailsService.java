@@ -2,11 +2,10 @@ package com.dttlibrary.config;
 
 import com.dttlibrary.model.User;
 import com.dttlibrary.repository.UserRepository;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -26,12 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(), // plain text: 123
-                user.getRoles().stream()
-                        .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRoleName()))
-                        .collect(Collectors.toSet())
-        );
+        return new CustomUserDetails(user);
     }
 }

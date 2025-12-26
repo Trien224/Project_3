@@ -8,12 +8,40 @@
 
     <h3 class="text-primary mb-4">👤 Hồ sơ cá nhân</h3>
 
-    <div class="card shadow-sm border-0 p-4" style="max-width:600px">
-        <p><b>Tên:</b> <span th:text="${user.fullName}"></span></p>
-        <p><b>Email:</b> <span th:text="${user.email}"></span></p>
-        <p><b>Số điện thoại:</b> <span th:text="${user.phone}"></span></p>
+    <!-- Success Message -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
-        <a href="#" class="btn btn-outline-primary mt-3">✏️ Cập nhật</a>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4" style="max-width:600px">
+            <div class="mb-3">
+                <strong>Họ và tên:</strong>
+                <p class="text-muted" th:text="${user.fullName}"></p>
+            </div>
+            <div class="mb-3">
+                <strong>Email:</strong>
+                <p class="text-muted" th:text="${user.email}"></p>
+            </div>
+            <div class="mb-3">
+                <strong>Số điện thoại:</strong>
+                <p class="text-muted" th:text="${user.phone ?: 'Chưa cập nhật'}"></p>
+            </div>
+            <div class="mb-3">
+                <strong>Tên đăng nhập:</strong>
+                <p class="text-muted" th:text="${user.username}"></p>
+            </div>
+
+            <hr>
+
+            <div class="d-flex gap-2 mt-2">
+                <a th:href="@{/user/profile/edit}" class="btn btn-primary">
+                    ✏️ Sửa thông tin
+                </a>
+                <a th:href="@{/user/profile/change-password}" class="btn btn-outline-secondary">
+                    🔑 Đổi mật khẩu
+                </a>
+            </div>
+        </div>
     </div>
 
 </div>

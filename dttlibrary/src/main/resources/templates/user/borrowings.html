@@ -6,24 +6,47 @@
 
 <div th:fragment="content">
 
-    <h3 class="text-primary mb-4">📚 Sách đang mượn</h3>
+    <h3 class="text-primary mb-4">📘 Lịch sử mượn sách</h3>
 
-    <table class="table table-bordered shadow-sm bg-white">
+    <div th:if="${borrowings.isEmpty()}" class="alert alert-info">
+        Bạn chưa mượn cuốn sách nào.
+    </div>
+
+    <table th:if="${!borrowings.isEmpty()}" class="table table-bordered shadow-sm bg-white align-middle">
         <thead class="table-primary">
         <tr>
             <th>Tên sách</th>
             <th>Ngày mượn</th>
             <th>Hạn trả</th>
+            <th>Ngày trả</th>
             <th>Trạng thái</th>
+            <th>Hành động</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="b : ${borrowings}">
-            <td th:text="${b.book.title}"></td>
-            <td th:text="${b.borrowDate}"></td>
-            <td th:text="${b.dueDate}"></td>
+            <td th:text="${b.bookItem.book.title}">Tên sách</td>
+            <td th:text="${#temporals.format(b.borrowDate, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(b.dueDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="${b.returnDate != null ? #temporals.format(b.returnDate, 'dd/MM/yyyy HH:mm') : '-'}"></td>
             <td>
-                <span class="badge bg-warning">Đang mượn</span>
+                <span th:switch="${b.status.name()}" class="badge"
+                      th:classappend="${b.status.name() == 'borrowed' ? 'bg-warning' :
+                                       (b.status.name() == 'returned' ? 'bg-success' :
+                                       (b.status.name() == 'overdue' ? 'bg-danger' : 'bg-secondary'))}">
+                    <span th:case="'borrowed'">Đang mượn</span>
+                    <span th:case="'returned'">Đã trả</span>
+                    <span th:case="'overdue'">Quá hạn</span>
+                    <span th:case="*">Khác</span>
+                </span>
+            </td>
+            <td>
+                <a th:if="${b.status.name() == 'borrowed' or b.status.name() == 'overdue'}"
+                   th:href="@{/borrowings/return/{id}(id=${b.id})}"
+                   class="btn btn-sm btn-outline-primary"
+                   onclick="return confirm('Bạn có chắc muốn trả sách này?')">
+                    Trả sách
+                </a>
             </td>
         </tr>
         </tbody>

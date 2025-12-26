@@ -49,6 +49,10 @@
         .text-success {
             font-size: 0.9rem;
         }
+        .register-link {
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
     </style>
 </head>
 
@@ -88,6 +92,11 @@
         </button>
     </form>
 
+    <!-- REGISTER LINK -->
+    <div class="register-link">
+        Chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
+    </div>
+
     <!-- ERROR -->
     <div class="text-danger mt-3" th:if="${param.error}">
         ⚠️ Sai tài khoản hoặc mật khẩu
@@ -96,6 +105,11 @@
     <!-- LOGOUT -->
     <div class="text-success mt-3" th:if="${param.logout}">
         ✅ Bạn đã đăng xuất thành công
+    </div>
+
+    <!-- REGISTER SUCCESS -->
+    <div class="text-success mt-3" th:if="${param.register_success}">
+        ✅ Đăng ký thành công! Vui lòng đăng nhập.
     </div>
 
 </div>
