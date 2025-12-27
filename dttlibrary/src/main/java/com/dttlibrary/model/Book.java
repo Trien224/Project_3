@@ -43,7 +43,7 @@ public class Book {
     private List<BookImage> images;
 
     // ===== BOOK ITEMS =====
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Eager fetch for calculations
     private List<BookItem> bookItems;
 
     // ===== LIFECYCLE =====
@@ -55,6 +55,20 @@ public class Book {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+    
+    // ===== UTILITY METHODS FOR QUANTITY =====
+    public int getTotalItems() {
+        return bookItems == null ? 0 : bookItems.size();
+    }
+
+    public long getAvailableItems() {
+        if (bookItems == null) {
+            return 0;
+        }
+        return bookItems.stream()
+                        .filter(item -> item.getStatus() == BookItem.Status.available)
+                        .count();
     }
 
     // ===== GETTERS & SETTERS =====

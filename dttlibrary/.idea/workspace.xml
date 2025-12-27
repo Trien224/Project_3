@@ -5,58 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48148bef-e284-43df-af99-cc8d6abe4e31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/CustomUserDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/books/detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/user/change-password.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/user/edit-profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/CustomUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/AuthSuccessController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/BookController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/BorrowController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminBookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminBookItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminBookItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminCategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/admin/AdminCategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/user/ProfileController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/user/UserBorrowController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/user/UserDashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/user/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/controller/user/UserProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/model/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/repository/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/repository/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/FileStorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/FileStorageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/admin-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/admin-layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/book-items/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/book-items/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/borrowings/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/borrowings/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/user-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/user-layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user/borrowings.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user/borrowings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/CustomUserDetailsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/config/WebConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/BookController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/BorrowController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/BookItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/BookItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dttlibrary/service/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/books/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/books/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/books/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/books/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user/books/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user/books/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminBookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminBookController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminBookItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminBookItemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminCategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/admin/AdminCategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/user/ProfileController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/user/UserBorrowController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/user/UserDashboardController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/user/UserProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/controller/user/UserProfileController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/repository/BookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/repository/BookRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/FileStorageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/FileStorageService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dttlibrary/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/book-items/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/book-items/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/borrowings/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/borrowings/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/user-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/user-layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/user/borrowings.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user/borrowings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/books/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/books/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/books/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/books/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/user/books/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user/books/detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

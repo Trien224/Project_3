@@ -28,7 +28,10 @@
 
             <hr class="my-4">
 
-            <p><b>Số lượng còn lại:</b> <span th:text="${available}" class="fw-bold fs-5 text-success"></span></p>
+            <div class="alert alert-info">
+                <strong>Số lượng còn lại:</strong>
+                <span th:text="${available}" class="fw-bold fs-5 text-success"></span>
+            </div>
 
             <div th:if="${available > 0 && availableItem != null}">
                 <form th:action="@{/borrowings/borrow}" method="post">

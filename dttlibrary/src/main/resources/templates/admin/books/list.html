@@ -41,7 +41,7 @@
                             <th>Title</th>
                             <th>Category</th>
                             <th>Author</th>
-                            <th>ISBN</th>
+                            <th>Quantity (Avail/Total)</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -57,7 +57,10 @@
                             <td th:text="${b.title}">Book Title</td>
                             <td th:text="${b.category?.name}">Category</td>
                             <td th:text="${b.author?.name}">Author</td>
-                            <td th:text="${b.isbn}">123456</td>
+                            <td>
+                                <span th:text="${b.getAvailableItems()}"></span> /
+                                <span th:text="${b.getTotalItems()}"></span>
+                            </td>
                             <td class="text-center">
                                 <a th:href="@{/admin/books/edit/{id}(id=${b.id})}" class="btn btn-warning btn-sm">Edit</a>
                                 <a th:href="@{/admin/books/delete/{id}(id=${b.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Delete book?')">Delete</a>

@@ -29,10 +29,15 @@ public class AdminBookItemController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
-        if (!model.containsAttribute("item")) {
-            model.addAttribute("item", new BookItem());
+    public String create(@RequestParam(required = false) Integer bookId, Model model) {
+        BookItem item = new BookItem();
+        if (bookId != null) {
+            Book book = bookService.findById(bookId);
+            if (book != null) {
+                item.setBook(book);
+            }
         }
+        model.addAttribute("item", item);
         model.addAttribute("books", bookService.findAll());
         return "admin/book-items/form";
     }
@@ -74,12 +79,26 @@ public class AdminBookItemController {
             redirectAttributes.addFlashAttribute("errorMessage", "Could not save book item. Barcode might already exist.");
             redirectAttributes.addFlashAttribute("item", item);
             if (item.getId() == null) {
-                return "redirect:/admin/book-items/create";
+                return "redirect:/admin/book-items/create?bookId=" + bookId;
             } else {
                 return "redirect:/admin/book-items/edit/" + item.getId();
             }
         }
-        return "redirect:/admin/book-items";
+        // Chuyển hướng về trang sửa sách gốc
+        return "redirect:/admin/books/edit/" + bookId;
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, @RequestParam(required = false) Integer bookId, RedirectAttributes redirectAttributes) {
+        try {
+            itemService.delete(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Book Item deleted successfully.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete book item. It might be in use.");
+        }
+        if (bookId != null) {
+            return "redirect:/admin/books/edit/" + bookId;
+        }
+        return "redirect:/admin/book-items";
+    }
 }

@@ -27,6 +27,14 @@ public class BookItemService {
         bookItemRepository.save(item);
     }
 
+    public void delete(Integer id) {
+        BookItem item = findById(id);
+        if (item != null && item.getStatus() != BookItem.Status.available) {
+            throw new RuntimeException("Cannot delete a book item that is not available.");
+        }
+        bookItemRepository.deleteById(id);
+    }
+
     // ✅ DASHBOARD
     public long countItems() {
         return bookItemRepository.count();
